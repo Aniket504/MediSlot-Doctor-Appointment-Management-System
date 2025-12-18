@@ -1,7 +1,8 @@
-
 import random 
 import string
-from django.core.mail import send_mail
+from django.core.mail import send_mail, EmailMessage
+from django.template.loader import render_to_string
+from django.conf import settings
 from smtplib import SMTPException
 
 def generate_otp():
@@ -20,17 +21,16 @@ def send_email(subject, message, to_email):
         fail_silently=False    
         )
     
-def send_email(subject, message, to_email):
-    print("In send mail function from utils file")
-    try:
-        send_mail(
-            subject,
-            message,
-            'twomindscreate17@gmail.com',
-            [to_email],
-            fail_silently=False    
-        )
-    except SMTPException as e:
-        print("SMTP error occurred:", e)
-    except Exception as ex:
-        print("Unexpected error sending email:", ex)
+def send_email(subject, template_name, context, to_email):
+    """
+    Send HTML email using templates.
+    """
+    html_content = render_to_string(f'emails/{template_name}.html', context)
+    email = EmailMessage(
+        subject=subject,
+        body=html_content,
+        from_email=settings.EMAIL_HOST_USER,
+        to=[to_email],
+    )
+    email.content_subtype = 'html'  # Set to HTML
+    email.send()

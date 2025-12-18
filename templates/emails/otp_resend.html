@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>MediSlot OTP Resent</title>
+
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        background: linear-gradient(135deg, #0f172a, #020617);
+        font-family: "Inter", "Segoe UI", Arial, sans-serif;
+      }
+
+      .wrapper {
+        padding: 40px 16px;
+      }
+
+      .container {
+        max-width: 600px;
+        margin: auto;
+        background: rgba(255, 255, 255, 0.96);
+        border-radius: 18px;
+        padding: 36px;
+        box-shadow: 0 25px 60px rgba(15, 23, 42, 0.25);
+        text-align: center;
+        animation: slideIn 0.7s ease-out;
+      }
+
+      @keyframes slideIn {
+        from {
+          opacity: 0;
+          transform: translateY(25px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .brand {
+        font-size: 28px;
+        font-weight: 800;
+        letter-spacing: 0.5px;
+        color: #0f172a;
+      }
+
+      .brand span {
+        color: #2563eb;
+      }
+
+      .subtitle {
+        font-size: 14px;
+        color: #64748b;
+        margin-top: 6px;
+        margin-bottom: 28px;
+      }
+
+      .icon-wrapper {
+        width: 88px;
+        height: 88px;
+        margin: 0 auto 22px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #2563eb, #1d4ed8);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        animation: pulseSoft 2.5s infinite;
+      }
+
+      @keyframes pulseSoft {
+        0% {
+          box-shadow: 0 0 0 0 rgba(37, 99, 235, 0.5);
+        }
+        70% {
+          box-shadow: 0 0 0 14px rgba(37, 99, 235, 0);
+        }
+        100% {
+          box-shadow: 0 0 0 0 rgba(37, 99, 235, 0);
+        }
+      }
+
+      .icon-wrapper svg {
+        width: 40px;
+        height: 40px;
+        fill: none;
+        stroke: #ffffff;
+        stroke-width: 2;
+      }
+
+      .content {
+        font-size: 15px;
+        color: #334155;
+        line-height: 1.7;
+        margin-bottom: 18px;
+      }
+
+      .otp-box {
+        margin: 24px 0;
+        padding: 22px;
+        background: #f1f5f9;
+        border-radius: 14px;
+        border: 1px dashed #c7d2fe;
+      }
+
+      .otp {
+        font-size: 34px;
+        font-weight: 800;
+        letter-spacing: 8px;
+        color: #1d4ed8;
+      }
+
+      .expiry {
+        margin-top: 8px;
+        font-size: 13px;
+        color: #64748b;
+      }
+
+      .note {
+        margin-top: 22px;
+        font-size: 14px;
+        color: #475569;
+      }
+
+      .footer {
+        margin-top: 36px;
+        font-size: 12px;
+        color: #94a3b8;
+        border-top: 1px solid #e2e8f0;
+        padding-top: 16px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="wrapper">
+      <div class="container">
+        <div class="brand">Medi<span>Slot</span></div>
+        <div class="subtitle">Secure Doctor Appointment Platform</div>
+
+        <div class="icon-wrapper">
+          <svg viewBox="0 0 24 24">
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M4 4v6h6M20 20v-6h-6M6.5 17.5a7 7 0 0011-3.5M17.5 6.5a7 7 0 00-11 3.5"
+            />
+          </svg>
+        </div>
+
+        <div class="content">
+          <p>Hello <strong>{{ username }}</strong>,</p>
+          <p>
+            Your One-Time Password has been regenerated for security reasons.
+            Please use the new OTP below.
+          </p>
+        </div>
+
+        <div class="otp-box">
+          <div class="otp">{{ otp }}</div>
+          <div class="expiry">This OTP will expire in {{ expiry }}.</div>
+        </div>
+
+        <div class="note">
+          If you did not request a new OTP, please ignore this message or
+          contact support.
+        </div>
+
+        <div class="footer">© 2025 MediSlot • Secure Healthcare Access</div>
+      </div>
+    </div>
+  </body>
+</html>

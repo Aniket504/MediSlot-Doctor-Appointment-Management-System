@@ -22,10 +22,10 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     
     # App URLs
-    path('auth/', include('authentication.urls')),  # Authentication endpoints
-    path('doctors/', include('doctors.urls')),  # Doctor endpoints
-    path('patients/', include('patients.urls')),  # Patient endpoints
-    path('telegram/', include('telegram_notifications.urls')),  # Telegram endpoints
+    path('api/auth/', include('authentication.urls')),  # Authentication endpoints
+    path('api/doctors/', include('doctors.urls')),  # Doctor endpoints
+    path('api/patients/', include('patients.urls')),  # Patient endpoints
+    path('api/telegram/', include('telegram_notifications.urls')),  # Telegram endpoints
     
     # API Documentation URLs (Added)
     path('api/schema/', SpectacularAPIView.as_view(), name='schema'),

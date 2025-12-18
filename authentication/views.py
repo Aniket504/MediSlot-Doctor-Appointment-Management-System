@@ -8,7 +8,7 @@ from .serializers import (
     LogoutSerializer,
     VerifyOTPSerializer,UpdateUserSerializer
 )
-from .utils import generate_otp, send_email
+from .utils import generate_otp, send_email  # Updated import
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
 from django.utils.encoding import smart_bytes
 from django.utils.http import urlsafe_base64_encode
@@ -28,9 +28,11 @@ class RegisterView(APIView):
 
             otp = OTP.objects.create(user=user, otp=generate_otp())
 
+            # Send OTP email with template
             send_email(
-                "Your OTP Code",
-                f"Hello {user.username}, \n\nYour OTP code is {otp.otp}. It expires in 150 seconds.",
+                subject="Your OTP Code - MediSlot",
+                template_name="otp_sent",
+                context={"username": user.username, "otp": otp.otp, "expiry": "150 seconds"},
                 to_email=user.email
             )
 
@@ -174,8 +176,9 @@ class ResendOTPView(APIView):
 
                     """ Sending Email """
                     send_email(
-                        subject = 'Your OTP Code.',
-                        message = f"Hello {user.username}, \n\nYour OTP code is {otp.otp}. It expires in 150 seconds.",
+                        subject="Resend OTP Code - MediSlot",
+                        template_name="otp_resend",
+                        context={"username": user.username, "otp": otp.otp, "expiry": "150 seconds"},
                         to_email=user.email
                     )
 
@@ -211,9 +214,10 @@ class PasswordResetRequestView(APIView):
                 abslink = f"http://localhost:5173{relative_link}"
                 print("gmail link : ", abslink)
                 send_email(
-                    'Password Reset Request',
-                    f'Hello {user.username}, \n\nUse this link to reset your password: {abslink}. The link expires in 15 minutes.',
-                    user.email
+                    subject="Password Reset Request - MediSlot",
+                    template_name="password_reset",
+                    context={"username": user.username, "reset_link": abslink, "expiry": "15 minutes"},
+                    to_email=user.email
                 )
                 return Response({'message': 'Password reset link sent to your email.'}, status=status.HTTP_200_OK)
             return Response({'error': "User with this email does not exist."}, status=status.HTTP_404_NOT_FOUND)
