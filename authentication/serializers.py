@@ -18,7 +18,7 @@ class RegisterSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ['id','username', 'email', 'password', 'password2', 'first_name', 'last_name', 'role', "is_verified"]
+        fields = ['id','username', 'email', 'password', 'password2', 'first_name', 'last_name', 'role']
 
     """Validate fields for user registration"""
 
